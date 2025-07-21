@@ -151,22 +151,28 @@
     /* Scale down character images for mobile */
     
     
-    /* Reposition characters for mobile landscape */
-    .images-1[src*="Jessica"] {
-        top: 280px !important;
-        left: 30px !important;
-    }
-    
-    .images-1[src*="Alex"] {
-        top: 20px !important;
-        left: 10px !important;
-    }
-    
-    .images-1[src*="Vicky"] {
-        top: 280px !important;
-        right: 30px !important;
-        left: auto !important;
-    }
+    /* Reposition characters closer together vertically */
+.images-1[src*="Jessica"] {
+    top: 200px !important; /* Move Jessica down from 280px */
+    left: 30px !important;
+}
+
+.images-1[src*="Alex"] {
+    top: 80px !important; /* Move Alex down from 20px */
+    left: 10px !important;
+}
+
+.images-1[src*="Vicky"] {
+    top: 200px !important; /* Move Vicky down from 280px */
+    right: 30px !important;
+    left: auto !important;
+}
+
+.images-1[src*="Kayla"] {
+    top: 80px !important; /* Move Kayla down from 20px */
+    right: 30px !important;
+    left: auto !important;
+}
    /* Make everything more compact for mobile */
 .images-1 {
     width: 90px !important; /* Down from 100px */
