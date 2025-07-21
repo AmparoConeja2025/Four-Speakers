@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Four Speakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+  </head>
+
+  <style>
+
+  .boxes-1 {
+    position: absolute;
+    top: 185px;
+    left: 580px;
+    min-width: 200px;
+    width: auto;  
+    height: 50px;
+    background-color: #93c5fd; /* blue-300 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.40);
+    border: 2px solid #35303086;
+    border-radius: 4px;
+    padding: 10px 20px;
+}
+
+.images-1 {
+    position: absolute;
+    top: 425px;
+    left: 100px;
+    width: 250px; 
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.7));
+    cursor: pointer; 
+   }   
+
+/* CONFETTI CELEBRATION STYLES */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.success-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 3em;
+    font-weight: bold;
+    color: #00c851;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+    z-index: 1001;
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.success-text.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    animation: pulse 0.6s ease;
+}
+
+/* TRY AGAIN ANIMATION STYLES */
+.try-again-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ff9500;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    z-index: 1001;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.try-again-text.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    animation: gentle-shake 0.8s ease;
+}
+
+@keyframes pulse {
+    0% { 
+        transform: translate(-50%, -50%) scale(1); 
+    }
+    25% { 
+        transform: translate(-50%, -50%) scale(1.15); 
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.05); 
+    }
+    75% { 
+        transform: translate(-50%, -50%) scale(1.1); 
+    }
+    100% { 
+        transform: translate(-50%, -50%) scale(1); 
+    }
+}
+
+@keyframes gentle-shake {
+    0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+    10% { transform: translate(-50%, -50%) scale(1.05) rotate(-2deg); }
+    20% { transform: translate(-50%, -50%) scale(1) rotate(2deg); }
+    30% { transform: translate(-50%, -50%) scale(1.02) rotate(-1deg); }
+    40% { transform: translate(-50%, -50%) scale(1) rotate(1deg); }
+    50% { transform: translate(-50%, -50%) scale(1.02) rotate(0deg); }
+    60% { transform: translate(-50%, -50%) scale(1) rotate(-1deg); }
+    70% { transform: translate(-50%, -50%) scale(1.01) rotate(1deg); }
+    80% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+.confetti {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    opacity: 0;
+}
+
+.confetti.active {
+    opacity: 1;
+    animation: confetti-explosion 2.5s ease-out forwards;
+}
+
+@keyframes confetti-explosion {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(1440deg) scale(0.2);
+        opacity: 0;
+    }
+}
+  
+/* MOBILE LANDSCAPE OPTIMIZATION */
+@media screen and (max-width: 896px) and (orientation: landscape) {
+    
+    /* Scale down character images for mobile */
+    .images-1 {
+        width: 120px !important;
+        filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.7));
+    }
+    
+    /* Reposition characters for mobile landscape */
+    .images-1[src*="Jessica"] {
+        top: 280px !important;
+        left: 30px !important;
+    }
+    
+    .images-1[src*="Alex"] {
+        top: 20px !important;
+        left: 10px !important;
+    }
+    
+    .images-1[src*="Vicky"] {
+        top: 280px !important;
+        right: 30px !important;
+        left: auto !important;
+    }
+    
+    .images-1[src*="Kayla"] {
+        top: 20px !important;
+        right: 30px !important;
+        left: auto !important;
+    }
+    
+    /* Make answer buttons more mobile-friendly */
+    .boxes-1 {
+        left: 50% !important;
+        transform: translateX(-50%);
+        min-width: 280px !important;
+        height: 45px !important;
+        font-size: 14px !important;
+        padding: 8px 15px !important;
+        touch-action: manipulation;
+    }
+    
+    /* Adjust button vertical positions */
+    .boxes-1[onclick*="jessica"] {
+        top: 60px !important;
+    }
+    
+    .boxes-1[onclick*="vicky"] {
+        top: 120px !important;
+    }
+    
+    .boxes-1[onclick*="alex"] {
+        top: 180px !important;
+    }
+    
+    .boxes-1[onclick*="kayla"] {
+        top: 240px !important;
+    }
+    
+    /* Optimize success/try-again text for mobile */
+    .success-text {
+        font-size: 2.2em !important;
+    }
+    
+    .try-again-text {
+        font-size: 1.8em !important;
+    }
+    
+    /* Optimize confetti for mobile performance */
+    .confetti {
+        width: 8px !important;
+        height: 8px !important;
+    }
+}
+
+/* MOBILE PORTRAIT (if they accidentally rotate) */
+@media screen and (max-width: 896px) and (orientation: portrait) {
+    body::before {
+        content: "📱 Please rotate your device to landscape mode for the best experience! 🔄";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.9);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        z-index: 2000;
+        font-size: 18px;
+    }
+}
+  </style>
+
+<body class="bg-gray-500 min-h-screen relative">
+
+<audio id="jessica-audio" src="Audio/jessica-intro.mp3"></audio>
+<audio id="alex-audio" src="Audio/alex-greet.mp3"></audio>
+<audio id="vicky-audio" src="Audio/vicky-study.mp3"></audio>
+<audio id="kayla-audio" src="Audio/kayla-cya.mp3"></audio>  
+
+<button class="boxes-1 absolute top-[50px]" onclick="checkAnswer('jessica')">I'm Jessica, nice to meet you.</button>
+
+<button class="boxes-1 bg-green-400 absolute top-[125px]" onclick="checkAnswer('vicky')">I love to study English</button>
+
+<button class="boxes-1 bg-brown-300 absolute top-[200px]" onclick="checkAnswer('alex')">Hi, my name is Alex.</button>
+
+<button class="boxes-1 bg-red-300 absolute top-[275px]" onclick="checkAnswer('kayla')">I hope you have a nice day.</button>
+
+<img src="Image/Jessica.png" class="images-1" onclick="playCharacter('jessica')" />
+
+<img src="Image/Vicky.png" class="images-1 absolute left-[1050px] top-[410px]" onclick="playCharacter('vicky')" />
+
+<img src="Image/Alex.png" class="images-1 left-[35px] top-[50px]" onclick="playCharacter('alex')" />
+
+<img src="Image/Kayla.png" class="images-1 absolute left-[1100px] top-[50px]" onclick="playCharacter('kayla')" />
+
+<!-- CONFETTI CELEBRATION ELEMENTS -->
+<div class="confetti-container" id="confettiContainer"></div>
+<div class="success-text" id="successText">👏 🎉 🎉 👏</div>
+
+<!-- TRY AGAIN ANIMATION ELEMENTS -->
+<div class="try-again-text" id="tryAgainText">🤔 Try Again! 💭</div>
+
+ <script>
+let lastSpeaker = null;  // Track who spoke last
+
+// CONFETTI CELEBRATION FUNCTIONS
+const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd', '#00d2d3', '#ff9f43', '#10ac84', '#ee5a6f'];
+
+// Array of congratulatory messages for variety!
+const congratsMessages = [
+    "👏 🎉 🎉 👏",
+    "🙌 😊 😊 🙌", 
+    "✨ 🎊 🎊 ✨",
+    "🎆 ⭐ ⭐ 🎆",
+    "👍 🚀 🚀 👍"
+];
+
+function showTryAgain() {
+    const tryAgainText = document.getElementById('tryAgainText');
+    
+    // Show try again text
+    tryAgainText.classList.add('show');
+    
+    // Hide try again text after 1.5 seconds
+    setTimeout(() => {
+        tryAgainText.classList.remove('show');
+    }, 1500);
+}
+
+function createConfetti(x, y) {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    
+    // Random color
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    
+    // Random shape
+    if (Math.random() > 0.5) {
+        confetti.style.borderRadius = '50%';
+    }
+    
+    // Random size
+    const size = Math.random() * 8 + 6;
+    confetti.style.width = size + 'px';
+    confetti.style.height = size + 'px';
+    
+    // Position at explosion point
+    confetti.style.left = x + 'px';
+    confetti.style.top = y + 'px';
+    
+    return confetti;
+}
+
+function explodeConfetti() {
+    const container = document.getElementById('confettiContainer');
+    const successText = document.getElementById('successText');
+    
+    // Pick a random congratulatory message!
+    const randomMessage = congratsMessages[Math.floor(Math.random() * congratsMessages.length)];
+    successText.textContent = randomMessage;
+    
+    // Show success text
+    successText.classList.add('show');
+    
+    // Create confetti explosion from center
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    
+    // Create 100 confetti pieces for MAXIMUM celebration density!
+    for (let i = 0; i < 100; i++) {
+        setTimeout(() => {
+            // Spread confetti in circle pattern
+            const angle = (i / 100) * Math.PI * 2;
+            const radius = Math.random() * 100;
+            const x = centerX + Math.cos(angle) * radius;
+            const y = centerY + Math.sin(angle) * radius;
+            
+            const confetti = createConfetti(x, y);
+            container.appendChild(confetti);
+            
+            // Activate animation
+            requestAnimationFrame(() => {
+                confetti.classList.add('active');
+            });
+            
+            // Remove confetti after animation
+            setTimeout(() => {
+                if (confetti.parentNode) {
+                    confetti.parentNode.removeChild(confetti);
+                }
+            }, 2500);
+        }, i * 10);
+    }
+    
+    // Hide success text after 2.5 seconds
+    setTimeout(() => {
+        successText.classList.remove('show');
+    }, 2500);
+}
+
+// Function to play audio AND remember who spoke
+function playCharacter(character) {
+    document.getElementById(character + '-audio').play();
+    lastSpeaker = character;  // Remember who just spoke!
+    console.log(character + " is speaking!");
+}
+
+// Function to check if button matches last speaker
+function checkAnswer(buttonCharacter) {
+    if (lastSpeaker === null) {
+        alert("Listen to a character first!");
+        return;
+    }
+    
+    if (buttonCharacter === lastSpeaker) {
+        // LAUNCH THE CONFETTI CELEBRATION!
+        explodeConfetti();
+    } else {
+        // GENTLE TRY AGAIN ANIMATION!
+        showTryAgain();
+    }
+}
+</script>   
+
+</body>
+</html>
